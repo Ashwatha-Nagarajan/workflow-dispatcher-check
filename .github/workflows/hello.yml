@@ -2,6 +2,16 @@ name: Hello World
 
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        type: choice
+        description: Who to greet
+        options: 
+        - monalisa
+        - cschleiden
+      message:
+        required: true
+      
   push:
     branches:
       - main
@@ -19,5 +29,6 @@ jobs:
         with: 
           python-version: '3.13'
 
-      - name: Run Python Script
-        run: python app/app.py
+      - name: Printing inputs
+        run:  echo "${{ github.event.inputs.message }} ${{ github.event.inputs.name }}"
+
