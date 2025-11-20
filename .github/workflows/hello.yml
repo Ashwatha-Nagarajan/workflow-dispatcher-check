@@ -4,14 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        type: choice
         description: Who to greet
-        options: 
-        - mona
-        - hari
       message:
         required: true
-      
+      age:
+        required: true
   push:
     branches:
       - main
