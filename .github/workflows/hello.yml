@@ -27,5 +27,5 @@ jobs:
           python-version: '3.13'
 
       - name: Printing inputs
-        run:  echo "${{ github.event.inputs.message }} ${{ github.event.inputs.name }}"
+        run:  echo "${{ github.event.inputs.message }} ${{ github.event.inputs.name }} ${{ github.event.inputs.age }}"
 
