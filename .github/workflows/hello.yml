@@ -1,0 +1,44 @@
+name: Hello Workflow
+ 
+on:
+  workflow_dispatch:  # ← ADD THIS!
+    inputs:
+      correlation_id:
+        description: 'Correlation ID for tracking'
+        required: true
+        type: string
+      environment:
+        description: 'Deployment environment'
+        required: true
+        type: string
+      commit_sha:
+        description: 'Commit SHA to deploy'
+        required: true
+        type: string
+      version:
+        description: 'Version to deploy'
+        required: false
+        type: string
+      deployment_type:
+        description: 'Type of deployment'
+        required: false
+        type: string
+        default: 'standard'
+      triggered_by:
+        description: 'Who triggered the deployment'
+        required: false
+        type: string
+        default: 'orca-system'
+ 
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print inputs
+        run: |
+          echo "Correlation ID: ${{ inputs.correlation_id }}"
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Commit SHA: ${{ inputs.commit_sha }}"
+          echo "Version: ${{ inputs.version }}"
+          echo "Deployment Type: ${{ inputs.deployment_type }}"
+          echo "Triggered By: ${{ inputs.triggered_by }}"
