@@ -1,31 +1,44 @@
-name: Hello World
-
+name: Hello Workflow
+ 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # ← ADD THIS!
     inputs:
-      name:
-        description: Who to greet
-      message:
+      correlation_id:
+        description: 'Correlation ID for tracking'
         required: true
-      age:
+        type: string
+      environment:
+        description: 'Deployment environment'
         required: true
-  push:
-    branches:
-      - main
-      - dev
-
+        type: string
+      commit_sha:
+        description: 'Commit SHA to deploy'
+        required: true
+        type: string
+      version:
+        description: 'Version to deploy'
+        required: false
+        type: string
+      deployment_type:
+        description: 'Type of deployment'
+        required: false
+        type: string
+        default: 'standard'
+      triggered_by:
+        description: 'Who triggered the deployment'
+        required: false
+        type: string
+        default: 'orca-system'
+ 
 jobs:
-  run-python:
+  hello:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Setup python
-        uses: actions/setup-python@v5
-        with: 
-          python-version: '3.13'
-
-      - name: Printing inputs
-        run:  echo "${{ github.event.inputs.message }} ${{ github.event.inputs.name }} ${{ github.event.inputs.age }}"
-
+      - name: Print inputs
+        run: |
+          echo "Correlation ID: ${{ inputs.correlation_id }}"
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Commit SHA: ${{ inputs.commit_sha }}"
+          echo "Version: ${{ inputs.version }}"
+          echo "Deployment Type: ${{ inputs.deployment_type }}"
+          echo "Triggered By: ${{ inputs.triggered_by }}"
